@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:instagram_clones/screens/login_screen.dart';
 import 'package:instagram_clones/utils/color_utils.dart';
 import 'package:instagram_clones/widgets/custom_buttons.dart';
 import 'package:instagram_clones/widgets/text_field_input.dart';
@@ -63,8 +64,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         textEditingController: bioController,
                         textInputType: TextInputType.text,
                         hintText: 'Enter your bio',
-                        isPass: false), 
-                    const MaxGap(16),       
+                        isPass: false),
+                    const MaxGap(16),
                     const CustomButton(
                       title: 'Sign Up',
                       buttonColor: Colors.blue,
@@ -73,17 +74,25 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 ),
               ),
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-               Text("Already have an account?"),       
-              SizedBox(width: 8),
-              Text(
-                  'Log In',
-                  style: TextStyle(
-                    color: Colors.blue,
+                const Text("Already have an account?"),
+                const SizedBox(width: 8),
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const LoginScreen()));
+                  },
+                  child: const Text(
+                    'Log In',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
                   ),
-                  ),
+                )
               ],
             ),
           ],

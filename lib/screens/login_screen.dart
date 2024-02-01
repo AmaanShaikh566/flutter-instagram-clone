@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:gap/gap.dart';
+import 'package:instagram_clones/screens/signup_scree.dart';
 import 'package:instagram_clones/utils/color_utils.dart';
+import 'package:instagram_clones/utils/validations.dart';
 import 'package:instagram_clones/widgets/custom_buttons.dart';
 import 'package:instagram_clones/widgets/text_field_input.dart';
 
@@ -39,16 +41,20 @@ class _LoginScreenState extends State<LoginScreen> {
                         color: white, height: 64),
                     const MaxGap(48),
                     TextFieldInput(
-                        textEditingController: emailController,
-                        textInputType: TextInputType.emailAddress,
-                        hintText: 'Enter your email address',
-                        isPass: false),
+                      textEditingController: emailController,
+                      textInputType: TextInputType.emailAddress,
+                      hintText: 'Enter your email address',
+                      isPass: false,
+                      validator: emailValidation,
+                    ),
                     const MaxGap(16),
                     TextFieldInput(
-                        textEditingController: passwordController,
-                        textInputType: TextInputType.visiblePassword,
-                        hintText: 'Enter your password',
-                        isPass: true),
+                      textEditingController: passwordController,
+                      textInputType: TextInputType.visiblePassword,
+                      hintText: 'Enter your password',
+                      isPass: true,
+                      validator: passwordValidation,
+                    ),
                     const MaxGap(16),
                     const CustomButton(
                       title: 'Log In',
@@ -58,15 +64,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 ),
               ),
             ),
-            const Row(
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text("Don't have an account?"),
                 SizedBox(width: 8),
-                Text(
-                  'Sign Up',
-                  style: TextStyle(
-                    color: Colors.blue,
+                GestureDetector(
+                  onTap: () {
+                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                  },
+                  child: const Text(
+                    'Sign Up',
+                    style: TextStyle(
+                      color: Colors.blue,
+                    ),
                   ),
                 ),
               ],
