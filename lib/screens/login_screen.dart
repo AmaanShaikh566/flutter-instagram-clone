@@ -17,10 +17,15 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final formKey = GlobalKey<FormState>();
 
   void dipose() {
     emailController.dispose();
     passwordController.dispose();
+  }
+
+  void submitForm() {
+    if (formKey.currentState!.validate()) {}
   }
 
   @override
@@ -33,34 +38,38 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 32),
                 width: double.infinity,
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    SvgPicture.asset('assets/instagram.svg',
-                        color: white, height: 64),
-                    const MaxGap(48),
-                    TextFieldInput(
-                      textEditingController: emailController,
-                      textInputType: TextInputType.emailAddress,
-                      hintText: 'Enter your email address',
-                      isPass: false,
-                      validator: emailValidation,
-                    ),
-                    const MaxGap(16),
-                    TextFieldInput(
-                      textEditingController: passwordController,
-                      textInputType: TextInputType.visiblePassword,
-                      hintText: 'Enter your password',
-                      isPass: true,
-                      validator: passwordValidation,
-                    ),
-                    const MaxGap(16),
-                    const CustomButton(
-                      title: 'Log In',
-                      buttonColor: Colors.blue,
-                    ),
-                  ],
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SvgPicture.asset('assets/instagram.svg',
+                          color: white, height: 64),
+                      const MaxGap(48),
+                      TextFieldInput(
+                        textEditingController: emailController,
+                        textInputType: TextInputType.emailAddress,
+                        hintText: 'Enter your email address',
+                        isPass: false,
+                        validator: emailValidation,
+                      ),
+                      const MaxGap(16),
+                      TextFieldInput(
+                        textEditingController: passwordController,
+                        textInputType: TextInputType.visiblePassword,
+                        hintText: 'Enter your password',
+                        isPass: true,
+                        validator: passwordValidation,
+                      ),
+                      const MaxGap(16),
+                      CustomButton(
+                        title: 'Log In',
+                        buttonColor: Colors.blue,
+                        onPressed: submitForm,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
@@ -71,7 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
                 SizedBox(width: 8),
                 GestureDetector(
                   onTap: () {
-                    Navigator.push(context, MaterialPageRoute(builder: (context) => const SignUpScreen()));
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const SignUpScreen()));
                   },
                   child: const Text(
                     'Sign Up',
